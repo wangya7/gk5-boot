@@ -1,0 +1,32 @@
+<project
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+        xmlns="http://maven.apache.org/POM/4.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>wang.bannong</groupId>
+    <artifactId>gk5-boot-starters</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <relativePath />
+  </parent>
+  <groupId>wang.bannong</groupId>
+  <artifactId>gk5-boot-starter-kafka</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <name>gk5-boot-starter-kafka</name>
+  <description>gk5-boot-starter-kafka</description>
+  <url>https://bannong.wang</url>
+
+  <properties>
+    <spring-kafka.version>2.4.5.RELEASE</spring-kafka.version>
+  </properties>
+
+  <dependencies>
+    <!-- kafka-clients:2.4.1 -->
+    <!-- https://docs.spring.io/spring-kafka/reference/html/#sending-messages -->
+    <!--<dependency>-->
+      <!--<groupId>org.springframework.kafka</groupId>-->
+      <!--<artifactId>spring-kafka</artifactId>-->
+      <!--<version>${spring-kafka.version}</version>-->
+    <!--</dependency>-->
+  </dependencies>
+</project>
