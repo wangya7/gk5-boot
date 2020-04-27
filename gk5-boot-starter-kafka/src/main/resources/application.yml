@@ -1,0 +1,5 @@
+server:
+  port: 9010
+
+logging:
+  config: classpath:log4j2.yml
