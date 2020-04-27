@@ -55,7 +55,7 @@
     <lombok.version>1.16.20</lombok.version>
     <beanutils.version>1.9.3</beanutils.version>
     <jackson-dataformat.version>2.9.9</jackson-dataformat.version>
-    <jackson-databind.version>2.9.9</jackson-databind.version>
+    <jackson-databind.version>2.9.10.4</jackson-databind.version>
   </properties>
 
 
