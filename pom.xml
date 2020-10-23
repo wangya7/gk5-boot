@@ -12,9 +12,11 @@
 
   <modules>
     <module>gk5-boot-dependencies</module>
+    <module>gk5-boot-mybatis</module>
+    <module>gk5-boot-mybatis1ms</module>
     <module>gk5-boot-parent</module>
     <module>gk5-boot-starter-kafka</module>
-    <module>gk5-boot-starter-test</module>
-    <module>gk5-boot-starters</module>
+    <module>gk5-boot-starter-sample</module>
+    <module>gk5-boot-starter-web</module>
   </modules>
 </project>
