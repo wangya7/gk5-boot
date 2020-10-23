@@ -15,6 +15,7 @@
     <module>gk5-boot-mybatis</module>
     <module>gk5-boot-mybatis1ms</module>
     <module>gk5-boot-parent</module>
+    <module>gk5-boot-redis</module>
     <module>gk5-boot-starter-kafka</module>
     <module>gk5-boot-starter-sample</module>
     <module>gk5-boot-starter-web</module>
