@@ -8,7 +8,7 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
-import wang.bannong.gk5.cache.AbstractCacheManager;
+import wang.bannong.gk5.boot.redis.AbstractCacheManager;
 
 @Service("hashCacheManager")
 public class HashRedisPersistMgrImpl extends AbstractCacheManager {

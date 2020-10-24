@@ -10,7 +10,7 @@ import java.io.Serializable;
  * Created by bn. on 2018/8/4 下午5:17
  */
 @Component
-@ConfigurationProperties(prefix = "redis")
+@ConfigurationProperties(prefix = "cache")
 @PropertySource("classpath:application.yml")
 public class RedisConfigProperties implements Serializable {
     private static final long serialVersionUID = -1515561047164933985L;

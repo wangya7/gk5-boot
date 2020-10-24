@@ -3,13 +3,14 @@ package wang.bannong.gk5.boot.redis.lock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import wang.bannong.gk5.cache.CacheManager;
+import wang.bannong.gk5.boot.redis.CacheManager;
 
 public class ConcurrentControlProcessor {
 
     private final static Logger logger = LoggerFactory.getLogger(ConcurrentControlProcessor.class);
 
-    public static int doProcess(CacheManager cacheManager, String key, int retryTimes, long sleepMillis, long expire, BizProcessor processor) {
+    public static int doProcess(CacheManager cacheManager, String key, int retryTimes,
+                                long sleepMillis, long expire, BizProcessor processor) {
         int processResult = 0;
         int retryTimesWork = retryTimes <= 0 ? 1 : retryTimes;
         long sleepMillisWork = sleepMillis <= 0 ? 1 : sleepMillis;
@@ -35,7 +36,8 @@ public class ConcurrentControlProcessor {
         return processResult;
     }
 
-    public static int doProcess(CacheManager cacheManager, String key, int retryTimes, long sleepMillis, BizProcessor processor) {
+    public static int doProcess(CacheManager cacheManager, String key, int retryTimes,
+                                long sleepMillis, BizProcessor processor) {
         return doProcess(cacheManager, key, retryTimes, sleepMillis, 0, processor);
     }
 }

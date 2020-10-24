@@ -11,9 +11,9 @@ import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Resource;
 
-import wang.bannong.gk5.cache.AbstractCacheManager;
-import wang.bannong.gk5.cache.CacheErrorEnum;
-import wang.bannong.gk5.cache.CacheResult;
+import wang.bannong.gk5.boot.redis.AbstractCacheManager;
+import wang.bannong.gk5.boot.redis.CacheErrorEnum;
+import wang.bannong.gk5.boot.redis.CacheResult;
 
 @Service("cachePersistentManager")
 public class RedisPersistentManagerImpl extends AbstractCacheManager {

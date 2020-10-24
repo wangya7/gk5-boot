@@ -1,5 +1,6 @@
 package wang.bannong.gk5.boot.redis.config;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -27,13 +28,12 @@ public class RedisConfig {
     @Autowired
     private RedisConfigProperties redisConfigProperties;
 
-
     @Bean
     public RedisConnectionFactory redisConnectionFactory() {
         RedisConfigProperties.RedisCfg cfg = redisConfigProperties.getRedis();
         RedisStandaloneConfiguration standaloneConfiguration = new RedisStandaloneConfiguration(cfg.getHost(), cfg.getPort());
         String passwd = cfg.getPassword();
-        if (passwd != null && passwd.length() > 0) {
+        if (StringUtils.isNoneBlank(passwd)) {
             standaloneConfiguration.setPassword(passwd);
         }
         JedisPoolConfig poolCofig = new JedisPoolConfig();

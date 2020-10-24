@@ -54,7 +54,6 @@
     <commons-collections.version>4.4</commons-collections.version>
     <log4j.version>1.7.21</log4j.version>
     <guava.version>28.2-jre</guava.version>
-    <lombok.version>1.16.20</lombok.version>
     <beanutils.version>1.9.3</beanutils.version>
     <jackson-dataformat.version>2.10.2</jackson-dataformat.version>
     <jackson-databind.version>2.10.2</jackson-databind.version>
@@ -90,11 +89,6 @@
         <groupId>org.apache.commons</groupId>
         <artifactId>commons-collections4</artifactId>
         <version>${commons-collections.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.projectlombok</groupId>
-        <artifactId>lombok</artifactId>
-        <version>${lombok.version}</version>
       </dependency>
       <dependency>
         <groupId>com.fasterxml.jackson.dataformat</groupId>

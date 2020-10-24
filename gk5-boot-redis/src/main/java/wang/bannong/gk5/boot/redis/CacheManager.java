@@ -122,5 +122,5 @@ public interface CacheManager {
     
     Set<Serializable> membersOfSet(String setName);
     
-    public Map<Object, Object> entries(String key);
+    Map<Object, Object> entries(String key);
 }
