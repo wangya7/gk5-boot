@@ -1,0 +1,48 @@
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+        xmlns="http://maven.apache.org/POM/4.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>wang.bannong</groupId>
+        <artifactId>gk5-boot-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <groupId>wang.bannong</groupId>
+    <artifactId>gk5-boot-starter-mybatis</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <name>gk5-boot-starter-mybatis</name>
+    <url>http://bannong.wang</url>
+    <description>gk5-boot-starter-mybatis</description>
+
+    <properties>
+        <mybatis-plus.version>3.3.0</mybatis-plus.version>
+        <mysql-connector-java.version>8.0.16</mysql-connector-java.version>
+        <p6spy.version>3.8.0</p6spy.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus</artifactId>
+            <version>${mybatis-plus.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>p6spy</groupId>
+            <artifactId>p6spy</artifactId>
+            <version>${p6spy.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-connector-java.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>

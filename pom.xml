@@ -12,12 +12,12 @@
 
   <modules>
     <module>gk5-boot-dependencies</module>
-    <module>gk5-boot-mongo</module>
-    <module>gk5-boot-mybatis</module>
-    <module>gk5-boot-mybatis1ms</module>
     <module>gk5-boot-parent</module>
-    <module>gk5-boot-redis</module>
     <module>gk5-boot-starter-kafka</module>
+    <module>gk5-boot-starter-mongo</module>
+    <module>gk5-boot-starter-mybatis</module>
+    <module>gk5-boot-starter-mybatis1ms</module>
+    <module>gk5-boot-starter-redis</module>
     <module>gk5-boot-starter-sample</module>
     <module>gk5-boot-starter-web</module>
   </modules>
