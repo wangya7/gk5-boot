@@ -12,6 +12,7 @@
 
   <modules>
     <module>gk5-boot-dependencies</module>
+    <module>gk5-boot-mongo</module>
     <module>gk5-boot-mybatis</module>
     <module>gk5-boot-mybatis1ms</module>
     <module>gk5-boot-parent</module>
