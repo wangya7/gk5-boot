@@ -1,9 +1,9 @@
 package wang.bannong.gk5.boot.mybatis1ms;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -29,7 +29,7 @@ import wang.bannong.gk5.boot.mybatis1ms.config.DataSourceDB;
 @EnableTransactionManagement
 public class MasterDB implements TransactionManagementConfigurer {
 
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LoggerFactory.getLogger(MasterDB.class);
 
     @Autowired
     private DataSourceDB dataSourceDB;
