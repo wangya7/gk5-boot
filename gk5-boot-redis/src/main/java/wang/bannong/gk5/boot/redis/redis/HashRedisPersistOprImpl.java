@@ -8,10 +8,10 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
-import wang.bannong.gk5.boot.redis.AbstractCacheManager;
+import wang.bannong.gk5.boot.redis.AbstractCacheOpr;
 
-@Service("hashCacheManager")
-public class HashRedisPersistMgrImpl extends AbstractCacheManager {
+@Service("hashCacheOpr")
+public class HashRedisPersistOprImpl extends AbstractCacheOpr {
     
     @Resource
     private RedisTemplate<String, Serializable> hashRedisPersistTemp;

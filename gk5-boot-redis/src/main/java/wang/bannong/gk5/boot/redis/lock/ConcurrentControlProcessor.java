@@ -3,13 +3,13 @@ package wang.bannong.gk5.boot.redis.lock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import wang.bannong.gk5.boot.redis.CacheManager;
+import wang.bannong.gk5.boot.redis.CacheOpr;
 
 public class ConcurrentControlProcessor {
 
     private final static Logger logger = LoggerFactory.getLogger(ConcurrentControlProcessor.class);
 
-    public static int doProcess(CacheManager cacheManager, String key, int retryTimes,
+    public static int doProcess(CacheOpr cacheOpr, String key, int retryTimes,
                                 long sleepMillis, long expire, BizProcessor processor) {
         int processResult = 0;
         int retryTimesWork = retryTimes <= 0 ? 1 : retryTimes;
@@ -25,7 +25,7 @@ public class ConcurrentControlProcessor {
             }
 
             // 获取锁并进行相应的业务处理
-            processResult = DistributedLocker.lockAndProcess(cacheManager, key, expire, processor);
+            processResult = DistributedLocker.lockAndProcess(cacheOpr, key, expire, processor);
 
             // 不是锁获取失败的情况，重试处理结束
             if (processResult != DistributedLocker.LOCK_FAILED) {
@@ -36,8 +36,8 @@ public class ConcurrentControlProcessor {
         return processResult;
     }
 
-    public static int doProcess(CacheManager cacheManager, String key, int retryTimes,
+    public static int doProcess(CacheOpr cacheOpr, String key, int retryTimes,
                                 long sleepMillis, BizProcessor processor) {
-        return doProcess(cacheManager, key, retryTimes, sleepMillis, 0, processor);
+        return doProcess(cacheOpr, key, retryTimes, sleepMillis, 0, processor);
     }
 }

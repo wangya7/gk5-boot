@@ -7,7 +7,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.Set;
 
-import wang.bannong.gk5.boot.redis.CacheManager;
+import wang.bannong.gk5.boot.redis.CacheOpr;
 import wang.bannong.gk5.boot.redis.CacheResult;
 
 /**
@@ -26,12 +26,12 @@ public abstract class DistributedLocker {
     /**
      * 获取分布式锁
      *
-     * @param cacheManager 缓存控制器
+     * @param cacheOpr 缓存控制器
      * @param key          缓存key值
      * @return 处理结果 true-获得锁 false-未获得锁
      */
-    public static boolean lock(CacheManager cacheManager, String key) {
-        return cacheManager.setnx(LOCK_KEY_PREFIX + key, String.valueOf(System.currentTimeMillis()));
+    public static boolean lock(CacheOpr cacheOpr, String key) {
+        return cacheOpr.setnx(LOCK_KEY_PREFIX + key, String.valueOf(System.currentTimeMillis()));
     }
 
     /**
@@ -39,18 +39,18 @@ public abstract class DistributedLocker {
      * <p>
      * 获取到分布式锁的情况，会进行如下处理：<br> 1、通过BizHandler执行相关业务处理<br> 2、设置该分布式锁的过期时间
      *
-     * @param cacheManager 缓存控制器
+     * @param cacheOpr 缓存控制器
      * @param key          缓存key值
      * @param expire       锁过期时间（单位：秒，小于等于0的情况，处理完成该锁就会被释放）
      * @param handler      业务处理对象
      * @return 处理结果 true-成功 false-失败
      */
-    public static boolean lockAndHandle(CacheManager cacheManager, String key, long expire, BizHandler handler) {
+    public static boolean lockAndHandle(CacheOpr cacheOpr, String key, long expire, BizHandler handler) {
         String cacheKey = LOCK_KEY_PREFIX + key;
 
         boolean lock;
         try {
-            lock = cacheManager.setnx(cacheKey, String.valueOf(System.currentTimeMillis()));
+            lock = cacheOpr.setnx(cacheKey, String.valueOf(System.currentTimeMillis()));
         } catch (Throwable t) {
             // 发生异常时，当作获取到锁
             lock = true;
@@ -65,9 +65,9 @@ public abstract class DistributedLocker {
             return handler.handle();
         } finally {
             if (expire > 0) {
-                cacheManager.put(cacheKey, "1", expire);
+                cacheOpr.put(cacheKey, "1", expire);
             } else {
-                cacheManager.del(cacheKey);
+                cacheOpr.del(cacheKey);
             }
         }
     }
@@ -77,18 +77,18 @@ public abstract class DistributedLocker {
      * <p>
      * 获取到分布式锁的情况，会进行如下处理：<br> 1、通过BizProcessor执行相关业务处理<br> 2、设置该分布式锁的过期时间
      *
-     * @param cacheManager 缓存控制器
+     * @param cacheOpr 缓存控制器
      * @param key          缓存key值
      * @param expire       锁过期时间（单位：秒，小于等于0的情况，处理完成该锁就会被释放）
      * @param processor    业务处理对象
      * @return 处理结果 -1代表获取锁失败 0代表处理成功 其他正整数代表各种业务处理失败的具体含义
      */
-    public static int lockAndProcess(CacheManager cacheManager, String key, long expire, BizProcessor processor) {
+    public static int lockAndProcess(CacheOpr cacheOpr, String key, long expire, BizProcessor processor) {
         String cacheKey = LOCK_KEY_PREFIX + key;
 
         boolean lock;
         try {
-            lock = cacheManager.setnx(cacheKey, String.valueOf(System.currentTimeMillis()));
+            lock = cacheOpr.setnx(cacheKey, String.valueOf(System.currentTimeMillis()));
         } catch (Throwable t) {
             // 发生异常时，当作获取到锁
             lock = true;
@@ -103,9 +103,9 @@ public abstract class DistributedLocker {
             return processor.process();
         } finally {
             if (expire > 0) {
-                cacheManager.put(cacheKey, "1", expire);
+                cacheOpr.put(cacheKey, "1", expire);
             } else {
-                cacheManager.del(cacheKey);
+                cacheOpr.del(cacheKey);
             }
         }
     }
@@ -116,24 +116,24 @@ public abstract class DistributedLocker {
      * 获取分布式锁的key进行检查，如果判断为死锁的话，进行删除处理
      * 只有在分布式锁的key建立到过期时间设置的中途服务器宕机 或者 超时设置时发生异常时才会出现死锁
      *
-     * @param cacheManagers
+     * @param cacheOprs
      */
-    public static void checkAndHandleDeadlock(long existstimeThreshold, CacheManager... cacheManagers) {
+    public static void checkAndHandleDeadlock(long existstimeThreshold, CacheOpr... cacheOprs) {
         // 参数检查
-        if (cacheManagers == null) {
+        if (cacheOprs == null) {
             return;
         }
 
         // 循环处理缓存对象
-        for (CacheManager cacheManager : cacheManagers) {
+        for (CacheOpr cacheOpr : cacheOprs) {
             // 当前缓存对象为空的情况，直接处理下一个缓存对象
-            if (cacheManager == null) {
+            if (cacheOpr == null) {
                 continue;
             }
 
             // 获取锁相关的缓存key
-            Set<String> keys = cacheManager.keys(LOCK_KEY_PATTERN);
-            logger.info(">>>缓存[ {} ]下获取到的keys: {}<<<", cacheManager.getClass().getName(), keys);
+            Set<String> keys = cacheOpr.keys(LOCK_KEY_PATTERN);
+            logger.info(">>>缓存[ {} ]下获取到的keys: {}<<<", cacheOpr.getClass().getName(), keys);
             if (CollectionUtils.isEmpty(keys)) {
                 // 当前缓存对象下获取不到锁相关的缓存key，直接处理下一个缓存对象
                 continue;
@@ -142,7 +142,7 @@ public abstract class DistributedLocker {
             // 循环处理锁相关的缓存key
             for (String key : keys) {
                 // 获取当前锁相关缓存key的缓存内容
-                CacheResult<String> cacheResult = cacheManager.getString(key);
+                CacheResult<String> cacheResult = cacheOpr.getString(key);
                 if (!cacheResult.isSucc() || cacheResult.isEmpty()) {
                     // 获取失败的情况，直接处理下一个锁相关的缓存key
                     continue;
@@ -152,8 +152,8 @@ public abstract class DistributedLocker {
                 long value = NumberUtils.toLong(cacheResult.getModule());
                 logger.info(">>>处理中的key[ {} ]的缓存内容: [ {} ]", key, value);
                 // 缓存内容为系统时间 且 当前系统时间比缓存的系统时间大于等于存储阈值 且 该锁相关的缓存key在缓存中无过期时间的情况，进行删除处理
-                if (value > 1 && (System.currentTimeMillis() - value) >= existstimeThreshold && cacheManager.getExpire(key) == -1) {
-                    cacheManager.del(key);
+                if (value > 1 && (System.currentTimeMillis() - value) >= existstimeThreshold && cacheOpr.getExpire(key) == -1) {
+                    cacheOpr.del(key);
                     logger.info(">>>key[ {} ]被成功删除.<<<", key);
                 }
             }

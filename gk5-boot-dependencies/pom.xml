@@ -52,7 +52,6 @@
     <!-- third party start -->
     <commons-lang3.version>3.5</commons-lang3.version>
     <commons-collections.version>4.4</commons-collections.version>
-    <log4j.version>1.7.21</log4j.version>
     <guava.version>28.2-jre</guava.version>
     <beanutils.version>1.9.3</beanutils.version>
     <jackson-dataformat.version>2.10.2</jackson-dataformat.version>

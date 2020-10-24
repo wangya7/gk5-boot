@@ -18,7 +18,7 @@ import org.springframework.data.mongodb.core.query.Update;
 import java.util.Collection;
 import java.util.List;
 
-interface MongoTemplate {
+public interface MongoOpr {
     // ====================================查询方法====================================
 
     <T> T findOne(Query query, Class<T> entityClass, String collectionName);

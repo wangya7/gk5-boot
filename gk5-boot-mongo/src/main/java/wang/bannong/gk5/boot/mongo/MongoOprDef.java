@@ -25,8 +25,8 @@ import java.util.List;
 /**
  * Created by bn. on 2019/10/11 5:13 PM
  */
-@Component("mongoTemplate")
-public class MongoTemplateDef implements MongoTemplate {
+@Component("mongoOpr")
+public class MongoOprDef implements MongoOpr {
 
     @Autowired
     private org.springframework.data.mongodb.core.MongoTemplate mongoTemplate;

@@ -12,12 +12,12 @@ import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Resource;
 
-import wang.bannong.gk5.boot.redis.AbstractCacheManager;
+import wang.bannong.gk5.boot.redis.AbstractCacheOpr;
 import wang.bannong.gk5.boot.redis.CacheErrorEnum;
 import wang.bannong.gk5.boot.redis.CacheResult;
 
-@Service("cacheManager")
-public class RedisManagerImpl extends AbstractCacheManager {
+@Service("cacheOpr")
+public class RedisOprImpl extends AbstractCacheOpr {
 
     @Resource
     private StringRedisTemplate                 stringRedisTemplate;
