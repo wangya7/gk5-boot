@@ -188,6 +188,6 @@
     select
     <include refid="Base_Column_List"/>
     from user
-    where name like concat('%', #{name}, '%')
+    where nick like concat('%', #{name}, '%')
   </select>
 </mapper>
