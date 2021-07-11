@@ -12,6 +12,7 @@
   <url>https://bannong.wang</url>
 
   <modules>
+    <module>gk5-boot-starter-sample-apollo</module>
     <module>gk5-boot-starter-sample-mybatis1ms</module>
   </modules>
 </project>

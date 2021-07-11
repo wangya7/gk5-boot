@@ -1,0 +1,14 @@
+server:
+  port: 8100
+logging:
+  config: classpath:log4j2.yml
+spring:
+  application:
+    name: gk5-boot-sample-apollo
+
+app:
+  # 应用ID(在Apollo服务端新增项目添加的应用ID)
+  id: fit
+apollo:
+  # apollo-config-service地址
+  meta: http://127.0.0.1:8080

@@ -63,6 +63,7 @@
   </dependencyManagement>
 
   <dependencies>
+    <!-- TODO 删除下面搜索依赖 -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-configuration-processor</artifactId>

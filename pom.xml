@@ -13,6 +13,7 @@
   <modules>
     <module>gk5-boot-dependencies</module>
     <module>gk5-boot-parent</module>
+    <module>gk5-boot-starter-apollo</module>
     <module>gk5-boot-starter-kafka</module>
     <module>gk5-boot-starter-mongo</module>
     <module>gk5-boot-starter-mybatis</module>
