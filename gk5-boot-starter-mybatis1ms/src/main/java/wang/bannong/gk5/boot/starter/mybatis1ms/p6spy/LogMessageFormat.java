@@ -25,7 +25,6 @@ public class LogMessageFormat implements MessageFormattingStrategy {
     public String formatMessage(int connectionId, String now, long elapsed,
                                 String category, String prepared, String sql,
                                 String url) {
-
-        return (sql != null && sql.length() >0) ? " Consume Time：" + elapsed + " ms " + now + "\n Execute SQL：" + sql.replaceAll("[\\s]+", " ") + "\n" : "";
+        return (sql != null && sql.length() >0) ? " Consume Time：" + elapsed + " ms " + now + " Execute SQL：" + sql.replaceAll("[\\s]+", " ") : "";
     }
 }
