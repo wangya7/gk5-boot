@@ -14,5 +14,6 @@
   <modules>
     <module>gk5-boot-starter-sample-apollo</module>
     <module>gk5-boot-starter-sample-mybatis1ms</module>
+    <module>gk5-boot-starter-sample-web</module>
   </modules>
 </project>
