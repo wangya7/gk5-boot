@@ -4,8 +4,11 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+import javax.annotation.Resource;
+
+
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import wang.bannong.gk5.boot.starter.web.security.model.Subject;
@@ -14,11 +17,22 @@ import wang.bannong.gk5.boot.starter.web.util.Constant;
 /**
  * TOKEN SERVICE
  */
+@Slf4j
 @Component
 public class TokenService {
 
-    @Autowired
+    @Resource
     private RedisTemplate redisTemplate;
+
+    /**
+     * 创建 token
+     *
+     * @param subject 主体信息
+     * @return ia
+     */
+    public String createSubject(Subject subject) {
+        return setSubject(null, subject);
+    }
 
     /**
      * 设置 token
@@ -43,6 +57,7 @@ public class TokenService {
             default:
                 redisTemplate.opsForValue().set(token, subject, Constant.TOKEN_EFFECTIVE_TIME, TimeUnit.SECONDS);
         }
+        log.info("cache setting, key={}, value={}", token, subject);
         return ia;
     }
 

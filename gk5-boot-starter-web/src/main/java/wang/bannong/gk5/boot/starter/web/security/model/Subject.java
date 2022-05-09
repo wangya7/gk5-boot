@@ -3,6 +3,7 @@ package wang.bannong.gk5.boot.starter.web.security.model;
 import java.util.Collection;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,27 +25,32 @@ public class Subject implements UserDetails {
     private SubjectClient client;
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }

@@ -49,6 +49,10 @@ public final class SpringUtils implements BeanFactoryPostProcessor, ApplicationC
         return (T) beanFactory.getBean(clz);
     }
 
+    public static <T> T getBean(String name, Class<T> clz) throws BeansException {
+        return (T) beanFactory.getBean(name, clz);
+    }
+
     /**
      * 如果BeanFactory包含一个与所给名称匹配的bean定义，则返回true
      */

@@ -13,6 +13,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import wang.bannong.gk5.boot.starter.web.filter.AOncePerRequestFilter;
 import wang.bannong.gk5.boot.starter.web.gateway.enums.ResponseStatusCode;
@@ -20,8 +23,10 @@ import wang.bannong.gk5.boot.starter.web.gateway.exception.GatewayException;
 import wang.bannong.gk5.boot.starter.web.gateway.model.GatewayRequest;
 import wang.bannong.gk5.boot.starter.web.gateway.model.GatewayResponse;
 import wang.bannong.gk5.boot.starter.web.gateway.model.HttpNativeRequest;
+import wang.bannong.gk5.boot.starter.web.security.ConvergenceAuthenticationToken;
 import wang.bannong.gk5.boot.starter.web.security.ResponseHandler;
 import wang.bannong.gk5.boot.starter.web.security.TokenService;
+import wang.bannong.gk5.boot.starter.web.security.model.Subject;
 import wang.bannong.gk5.boot.starter.web.util.JsonUtils;
 
 /**
@@ -62,12 +67,22 @@ public class Request1stFilter extends AOncePerRequestFilter {
             String token = request.getHeader(HttpNativeRequest.IA);
             if (!noNeedContainProfile(requestURI)) {
                 HttpNativeRequest nativeRequest = HttpNativeRequest.of(request);
+                Subject subject = tokenService.getSubject(token);
+                if (subject != null) {
+                    ConvergenceAuthenticationToken authenticationToken = new ConvergenceAuthenticationToken(subject, null);
+                    authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    SecurityContext securityContext = SecurityContextHolder.getContext();
+                    if (securityContext == null) {
+                        securityContext = SecurityContextHolder.createEmptyContext();
+                    }
+                    securityContext.setAuthentication(authenticationToken);
+                }
                 GatewayRequest requestProfile = GatewayRequest
                         .builder()
                         .nativeRequest(nativeRequest)
                         .traceId(traceId)
                         .requestTime(System.currentTimeMillis())
-                        .subject(tokenService.getSubject(token))
+                        .subject(subject)
                         .build();
                 RequestContextHolder.set(requestProfile);
                 LOGGER.info("request profile:[{}]", requestProfile);

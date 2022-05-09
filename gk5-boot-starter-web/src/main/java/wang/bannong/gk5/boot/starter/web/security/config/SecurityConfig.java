@@ -4,9 +4,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-
 import javax.annotation.Resource;
+
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.context.ApplicationContext;
@@ -67,12 +66,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         Set<String> permitAllUrls = new HashSet<>();
         for (Map.Entry<RequestMappingInfo, HandlerMethod> entry : handlerMethods.entrySet()) {
             HandlerMethod handlerMethod = entry.getValue();
-            RequestMappingInfo requestMappingInfo = entry.getKey();
-            PathPatternsRequestCondition condition;
-            Set<PathPattern> urls;
-            if (requestMappingInfo != null &&
-                    (condition = requestMappingInfo.getPathPatternsCondition()) != null &&
-                    CollectionUtils.isNotEmpty(urls = condition.getPatterns())) {
+            PathPatternsRequestCondition condition = entry.getKey().getPathPatternsCondition();
+            Set<PathPattern> urls = condition.getPatterns();
+            if (CollectionUtils.isNotEmpty(urls)) {
                 Set<String> urlSet = urls.stream()
                                          .map(PathPattern::getPatternString)
                                          .collect(Collectors.toSet());
@@ -81,7 +77,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 if (permitAll != null) {
                     permitAllUrls.addAll(urlSet);
                 } else {
-                    Anonymous anonymousAccess = handlerMethod.getMethod().getAnnotation(Anonymous.class);
+                    Anonymous anonymousAccess =
+                            handlerMethod.getMethod().getAnnotation(Anonymous.class);
                     if (anonymousAccess != null) {
                         anonymousUrls.addAll(urlSet);
                     }
@@ -150,14 +147,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(convergenceAuthenticationProvider());
-        auth.userDetailsService(subjectService)
-            .passwordEncoder(bCryptPasswordEncoder());
+        auth.userDetailsService(subjectService).passwordEncoder(bCryptPasswordEncoder());
     }
 
     @Bean
     public AuthenticationProvider convergenceAuthenticationProvider(){
-        ConvergenceAuthenticationProvider provider = new ConvergenceAuthenticationProvider();
-        provider.setSubjectService(subjectService);
-        return provider;
+        return new ConvergenceAuthenticationProvider(subjectService);
     }
 }

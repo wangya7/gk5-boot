@@ -1,12 +1,10 @@
 package wang.bannong.gk5.boot.starter.web.security;
 
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import wang.bannong.gk5.boot.starter.web.gateway.SubjectClient;
 import wang.bannong.gk5.boot.starter.web.security.model.Subject;
 
-public class SubjectService implements UserDetailsService {
+public interface SubjectService extends UserDetailsService {
     /**
      * 查询登录主体信息
      *
@@ -15,15 +13,9 @@ public class SubjectService implements UserDetailsService {
      * @param authenticationType 验证方式
      * @param subjectClient      客户端
      */
-    public Subject querySubject(String principal,
+    Subject querySubject(String principal,
                                 String password,
                                 AuthenticationType authenticationType,
-                                SubjectClient subjectClient) {
-        return null;
-    }
+                                SubjectClient subjectClient);
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
-    }
 }
