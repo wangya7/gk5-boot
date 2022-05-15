@@ -29,6 +29,7 @@ public class HttpNativeRequest {
     private String sign;
     private String ip;
     private String method;
+    private String path;
 
     public static String blank(String src) {
         if (src != null && src.length() > 0) {
@@ -48,6 +49,7 @@ public class HttpNativeRequest {
         nativeRequest.setSign(blank(request.getHeader(SIGN)));
         nativeRequest.setIp(getIpAddr(request));
         nativeRequest.setMethod(request.getMethod());
+        nativeRequest.setPath(request.getRequestURI());
         return nativeRequest;
     }
 
@@ -129,6 +131,11 @@ public class HttpNativeRequest {
         this.method = method;
     }
 
+    private void setPath(String path) {
+        this.path = path;
+    }
+
+
     public String getRt() {
         return rt;
     }
@@ -165,6 +172,10 @@ public class HttpNativeRequest {
         return method;
     }
 
+    public String getPath() {
+        return path;
+    }
+
     @Override
     public String toString() {
         return "HttpNativeRequest{" +
@@ -177,6 +188,7 @@ public class HttpNativeRequest {
                 ", sign='" + sign + '\'' +
                 ", ip='" + ip + '\'' +
                 ", method='" + method + '\'' +
+                ", path='" + path + '\'' +
                 '}';
     }
 }

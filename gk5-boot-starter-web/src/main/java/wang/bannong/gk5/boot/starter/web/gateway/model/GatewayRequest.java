@@ -70,11 +70,16 @@ public class GatewayRequest implements Serializable {
      */
     private final String method;
 
+    /**
+     * 客户端的请求路径
+     */
+    private final String path;
+
     public GatewayRequest(
             HttpNativeRequest nativeRequest, String traceId, long clientRequestTime,
             long requestTime, String channel, String appid, HardAndSoftInfo hardAndSoftInfo,
             Subject subject, GeographicalLocation geographicalLocation,
-            String sign, String ip, String method) {
+            String sign, String ip, String method, String path) {
         this.nativeRequest = nativeRequest;
         this.traceId = traceId;
         this.clientRequestTime = clientRequestTime;
@@ -87,6 +92,7 @@ public class GatewayRequest implements Serializable {
         this.sign = sign;
         this.ip = ip;
         this.method = method;
+        this.path = path;
     }
 
     public static GatewayRequest.HttpRequestProfileBuilder builder() {
@@ -106,6 +112,7 @@ public class GatewayRequest implements Serializable {
         private Subject              subject;
         private GeographicalLocation geographicalLocation;
         private String sign;
+        private String path;
 
         public GatewayRequest.HttpRequestProfileBuilder nativeRequest(HttpNativeRequest nativeRequest) {
             this.nativeRequest = nativeRequest;
@@ -119,6 +126,7 @@ public class GatewayRequest implements Serializable {
             if (StringUtils.isNotBlank(nativeRequest.getGl())) {
                 this.geographicalLocation = GeographicalLocation.of(nativeRequest.getGl());
             }
+            this.path = nativeRequest.getPath();
             return this;
         }
 
@@ -141,7 +149,7 @@ public class GatewayRequest implements Serializable {
             return new GatewayRequest(this.nativeRequest, this.traceId, this.clientRequestTime,
                     this.requestTime, this.channel, this.appid, this.hardAndSoftInfo,
                     this.subject, this.geographicalLocation,
-                    this.sign, this.ip, this.method);
+                    this.sign, this.ip, this.method, this.path);
         }
     }
 
@@ -194,6 +202,10 @@ public class GatewayRequest implements Serializable {
         return method;
     }
 
+    public String getPath() {
+        return path;
+    }
+
     @Override
     public String toString() {
         return "GatewayRequest{" +
@@ -208,6 +220,7 @@ public class GatewayRequest implements Serializable {
                 ", sign='" + sign + '\'' +
                 ", ip='" + ip + '\'' +
                 ", method='" + method + '\'' +
+                ", path='" + path + '\'' +
                 ", nativeRequest=" + nativeRequest +
                 '}';
     }
