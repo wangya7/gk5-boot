@@ -5,18 +5,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Properties;
 import javax.sql.DataSource;
 
 
-import com.github.pagehelper.PageInterceptor;
 import org.apache.ibatis.io.VFS;
-import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.boot.autoconfigure.MybatisProperties;
 import org.mybatis.spring.boot.autoconfigure.SpringBootVFS;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
