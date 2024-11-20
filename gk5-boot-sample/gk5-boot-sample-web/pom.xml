@@ -1,0 +1,38 @@
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+        xmlns="http://maven.apache.org/POM/4.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>wang.bannong</groupId>
+    <artifactId>gk5-boot-sample</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+  </parent>
+
+  <groupId>wang.bannong</groupId>
+  <artifactId>gk5-boot-sample-web</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <name>gk5-boot-sample-web</name>
+  <description>gk5-boot-sample-web</description>
+  <url>https://bannong.wang</url>
+
+  <properties>
+    <netty.version>4.1.107.Final</netty.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>wang.bannong</groupId>
+      <artifactId>gk5-boot-starter-web</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
+    </dependency>
+
+    <!--redisson-->
+    <dependency>
+      <groupId>org.redisson</groupId>
+      <artifactId>redisson-spring-boot-starter</artifactId>
+      <version>3.31.0</version>
+    </dependency>
+  </dependencies>
+
+</project>

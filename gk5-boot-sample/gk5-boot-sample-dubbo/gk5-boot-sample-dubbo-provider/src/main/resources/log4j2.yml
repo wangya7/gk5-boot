@@ -1,0 +1,69 @@
+Configuration:
+  status: warn
+  monitorInterval: 30
+  Properties:
+    Property:
+    - name: project.name
+      value: gk5-boot-sample-dubbo-provider
+    - name: log.level
+      value: info
+    - name: log.level.console
+      value: debug
+    - name: log.path
+      value: /Users/wangya/Downloads/logs
+
+  Appenders:
+    Console:
+      name: CONSOLE
+      target: SYSTEM_OUT
+      ThresholdFilter:
+        level: ${log.level.console}
+        onMatch: ACCEPT
+        onMismatch: DENY
+      PatternLayout:
+        pattern: '%d %-5p |%X{tid}| [%c:%L] %m%n'
+
+    RollingFile:
+    - name: ROLLING_FILE
+      ignoreExceptions: false
+      fileName: ${log.path}/${project.name}.log
+      filePattern: ${log.path}/${date:yyyy-MM}/${project.name}-%d{yyyy-MM-dd}-%i.log.gz
+      PatternLayout:
+        pattern: '%d %-5p |%X{tid}| [%c:%L] %m%n'
+      Policies:
+        TimeBasedTriggeringPolicy:
+          interval: 1
+        SizeBasedTriggeringPolicy:
+          size: 64MB
+    - name: ROLLING_ERROR_FILE
+      ignoreExceptions: false
+      fileName: ${log.path}/${project.name}-error.log
+      filePattern: ${log.path}/${date:yyyy-MM}/${project.name}-%d{yyyy-MM-dd}-%i.log.error.gz
+      ThresholdFilter:
+        level: ERROR
+        onMatch: ACCEPT
+        onMismatch: DENY
+      PatternLayout:
+        pattern: '%d %-5p |%X{tid}| [%c:%L] %m%n'
+      Policies:
+        TimeBasedTriggeringPolicy:
+          interval: 1
+        SizeBasedTriggeringPolicy:
+          size: 64MB
+
+  Loggers:
+    Logger:
+    - name: org.springframework
+      level: warn
+    - name: wang.bannong.gk5.boot.sample.dubbo.mapper
+      level: debug
+      additivity: false
+      AppenderRef:
+      - ref: CONSOLE
+      - ref: ROLLING_FILE
+    Root:
+      level: ${log.level}
+      AppenderRef:
+        - ref: CONSOLE
+        - ref: ROLLING_FILE
+        - ref: ROLLING_ERROR_FILE

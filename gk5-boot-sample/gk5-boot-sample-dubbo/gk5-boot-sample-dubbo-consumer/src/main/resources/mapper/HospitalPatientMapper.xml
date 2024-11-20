@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wang.bannong.gk5.boot.sample.dubbo.mapper.HospitalPatientMapper">
+  <resultMap id="BaseResultMap" type="wang.bannong.gk5.boot.sample.dubbo.entity.HospitalPatient">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="hospital_id" jdbcType="BIGINT" property="hospitalId" />
+    <result column="out_patient_id" jdbcType="VARCHAR" property="outPatientId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="identity_card_number" jdbcType="VARCHAR" property="identityCardNumber" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="permanent_residence_address" jdbcType="VARCHAR" property="permanentResidenceAddress" />
+    <result column="residential_address" jdbcType="VARCHAR" property="residentialAddress" />
+    <result column="marital_status" jdbcType="BIT" property="maritalStatus" />
+    <result column="medical_insurance" jdbcType="BIT" property="medicalInsurance" />
+    <result column="medical_insurance_number" jdbcType="VARCHAR" property="medicalInsuranceNumber" />
+    <result column="health_number" jdbcType="VARCHAR" property="healthNumber" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="is_del" jdbcType="TINYINT" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_id" jdbcType="BIGINT" property="createId" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_id" jdbcType="BIGINT" property="updateId" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, hospital_id, out_patient_id, `name`, identity_card_number, mobile,
+    permanent_residence_address, residential_address, marital_status, medical_insurance,
+    medical_insurance_number, health_number, remarks, is_del, create_time, create_id,
+    update_time, update_id
+  </sql>
+  
+  <select id="selectByMobile" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    from hospital_patient
+    where mobile = #{mobile}
+    limit 1
+  </select>
+</mapper>
