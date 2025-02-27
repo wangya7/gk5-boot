@@ -1,6 +1,8 @@
 package wang.bannong.gk5.boot.sample.dubbo.facade;
 
-public class StudentDTO {
+import java.io.Serializable;
+
+public class StudentDTO implements Serializable {
     private final static long serialVersionUID = 1L;
 
     private String  name;

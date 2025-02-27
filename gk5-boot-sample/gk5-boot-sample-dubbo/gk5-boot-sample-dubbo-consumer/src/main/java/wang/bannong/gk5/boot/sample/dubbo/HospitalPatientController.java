@@ -33,7 +33,7 @@ public class HospitalPatientController {
         return hospitalPatientService.hello(greet);
     }
 
-    @GetMapping(" ")
+    @GetMapping("queryName")
     public String queryStudentByName(@RequestParam("studentName") String studentName) {
         StudentDTO dto = hospitalPatientService.queryStudentByName(studentName);
         return dto != null ? dto.getName() : "Not Found";
